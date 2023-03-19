@@ -42,6 +42,12 @@ struct ec2_platform_data {
 		.default_dup_conns = 4,
 		.force_proto_simple = true,
 	},
+	[3] = {
+		.name = "g4dn.12xlarge",
+		.topology = NULL,
+		.default_dup_conns = 4,
+		.force_proto_simple = true,
+	},
 };
 
 /*
