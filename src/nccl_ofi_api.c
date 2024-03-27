@@ -86,6 +86,12 @@ ncclResult_t nccl_net_ofi_init(ncclDebugLogger_t logFunction)
 	NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "Initializing " PACKAGE_STRING);
 
 	ret = nccl_net_ofi_create_plugin(&plugin);
+	
+	for (int i = 0; i < plugin->num_devs; i++) {
+		nccl_net_ofi_device_t *dev = plugin->devs[i];
+		printf("[INSTRUMENT] Found Device during `init(..)`: %s [%d]\n", 
+			dev->name, dev->dev_id);
+	}
 
 	return nccl_net_ofi_retval_translate(ret);
 }
