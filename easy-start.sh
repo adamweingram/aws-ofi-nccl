@@ -2,7 +2,7 @@
 
 set -e -x -o pipefail
 
-./automake.sh
+./autogen.sh
 
 mkdir -p build
 
