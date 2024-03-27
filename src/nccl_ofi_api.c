@@ -104,6 +104,8 @@ ncclResult_t nccl_net_ofi_devices(int *num_devices)
 		return ncclInvalidArgument;
 	}
 
+	printf("[INSTRUMENT] `plugin->num_devs`, result of `nccl_net_ofi_devices()`: %d\n", plugin->num_devs);
+
 	*num_devices = plugin->num_devs;
 	return ncclSuccess;
 }
