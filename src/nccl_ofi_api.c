@@ -89,7 +89,7 @@ ncclResult_t nccl_net_ofi_init(ncclDebugLogger_t logFunction)
 	
 	for (int i = 0; i < plugin->num_devs; i++) {
 		nccl_net_ofi_device_t *dev = plugin->devs[i];
-		printf("[INSTRUMENT] Found Device during `init(..)`: %s [%d]\n", 
+		NCCL_OFI_INFO(NCCL_INIT | NCCL_NET,"[INSTRUMENT] Found Device during `init(..)`: %s [%d]\n", 
 			dev->name, dev->dev_id);
 	}
 
@@ -110,7 +110,7 @@ ncclResult_t nccl_net_ofi_devices(int *num_devices)
 		return ncclInvalidArgument;
 	}
 
-	printf("[INSTRUMENT] `plugin->num_devs`, result of `nccl_net_ofi_devices(..)`: %d\n", plugin->num_devs);
+	NCCL_OFI_INFO(NCCL_INIT | NCCL_NET,"[INSTRUMENT] `plugin->num_devs`, result of `nccl_net_ofi_devices(..)`: %d\n", plugin->num_devs);
 
 	*num_devices = plugin->num_devs;
 	return ncclSuccess;
