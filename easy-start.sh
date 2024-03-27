@@ -13,3 +13,5 @@ mkdir -p build
     --prefix="$(realpath ./build)"
 
 make -j
+
+make install
