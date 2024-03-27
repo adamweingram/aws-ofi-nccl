@@ -104,7 +104,7 @@ ncclResult_t nccl_net_ofi_devices(int *num_devices)
 		return ncclInvalidArgument;
 	}
 
-	printf("[INSTRUMENT] `plugin->num_devs`, result of `nccl_net_ofi_devices()`: %d\n", plugin->num_devs);
+	printf("[INSTRUMENT] `plugin->num_devs`, result of `nccl_net_ofi_devices(..)`: %d\n", plugin->num_devs);
 
 	*num_devices = plugin->num_devs;
 	return ncclSuccess;
@@ -113,6 +113,8 @@ ncclResult_t nccl_net_ofi_devices(int *num_devices)
 
 ncclResult_t nccl_net_ofi_get_properties(int dev_id, nccl_ofi_properties_t *ofi_properties)
 {
+	printf("[INSTRUMENT] `dev_id`, argument passed to `nccl_net_ofi_get_properties(..)`: %d\n", dev_id);
+
 	/* Validate plugin */
 	if (OFI_UNLIKELY(plugin == NULL)) {
 		NCCL_OFI_WARN("Error accessing plugin. Plugin has not been initialized yet.");
