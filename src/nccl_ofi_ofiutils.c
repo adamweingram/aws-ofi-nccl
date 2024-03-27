@@ -211,6 +211,8 @@ int nccl_ofi_ofiutils_get_providers(const char *prov_include,
 			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Skipping provider %s",
 				      prov->fabric_attr->prov_name);
 		} else {
+			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Will use provider %s",
+				      prov->fabric_attr->prov_name);
 			if (!providers) {
 				providers = last_prov = prov;
 			} else {
