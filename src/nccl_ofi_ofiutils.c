@@ -200,6 +200,11 @@ int nccl_ofi_ofiutils_get_providers(const char *prov_include,
 	char *max_dev_env = getenv("MAX_NUM_DEVICES_PER_NODE");
 	if (max_dev_env) {
 		max_dev_per_node = atoi(max_dev_env);
+		NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INFO] MAX_NUM_DEVICES_PER_NODE envvar was set to: %d. Will not exceed %d providers.", 
+			max_dev_per_node, max_dev_per_node);
+	} else {
+		NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INFO] MAX_NUM_DEVICES_PER_NODE envvar not set. Using default value: %d", max_dev_per_node);
+	
 	}
 
 	/* Now remove all providers in the providers list that do not
