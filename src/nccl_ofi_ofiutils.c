@@ -196,6 +196,11 @@ int nccl_ofi_ofiutils_get_providers(const char *prov_include,
 	}
 
 	const int MAX_NUM_DEVICES_PER_NODE = 1;
+	int max_dev_per_node = MAX_NUM_DEVICES_PER_NODE;
+	char *max_dev_env = getenv("MAX_NUM_DEVICES_PER_NODE");
+	if (max_dev_env) {
+		max_dev_per_node = atoi(max_dev_env);
+	}
 
 	/* Now remove all providers in the providers list that do not
 	 * match the selected name, and count the ones that do.
@@ -212,12 +217,10 @@ int nccl_ofi_ofiutils_get_providers(const char *prov_include,
 			fi_freeinfo(prov);
 			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Skipping provider %s",
 				      prov->fabric_attr->prov_name);
-		} else if (*num_prov_infos >= MAX_NUM_DEVICES_PER_NODE) {
+		} else if (*num_prov_infos >= max_dev_per_node) {
 			fi_freeinfo(prov);
-			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Skipping provider %s because we have exceeded the maximum number of devices per node specified in MAX_NUM_DEVICES_PER_NODE (%d >= %d)",
-				      prov->fabric_attr->prov_name,
-					  *num_prov_infos,
-					  MAX_NUM_DEVICES_PER_NODE);
+			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Skipping provider %s because we have exceeded the maximum number of devices per node specified in MAX_NUM_DEVICES_PER_NODE envvar or default (%d)",
+				      prov->fabric_attr->prov_name, max_dev_per_node);
 		}
 		else {
 			NCCL_OFI_INFO(NCCL_INIT | NCCL_NET, "[INSTRUMENT] Will use provider %s with `prov->nic->device_attr->name`: %s",
